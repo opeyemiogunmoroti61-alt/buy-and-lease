@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -101,12 +102,47 @@ CORS_ALLOWED_ORIGINS = env.list(
     default=["http://localhost:3000", "http://127.0.0.1:3000"],
 )
 
-# ─── Media / Static ───────────────────────────────────────────────────────────
+# ─── Media / Static ─────────────────────────────────────────────────
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# Cloudflare R2 (S3-compatible) for media — only activates if all
+# required R2 env vars are actually set. Locally, if you haven't
+# added them to .env yet, this silently falls back to saving
+# uploads to local disk exactly like before.
+R2_BUCKET_NAME = env("R2_BUCKET_NAME", default="")
+
+if R2_BUCKET_NAME:
+    AWS_ACCESS_KEY_ID = env("R2_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = env("R2_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = R2_BUCKET_NAME
+    AWS_S3_ENDPOINT_URL = env("R2_ENDPOINT_URL")
+    AWS_S3_CUSTOM_DOMAIN = env("R2_PUBLIC_URL", default="").replace("https://", "").replace("http://", "")
+    AWS_DEFAULT_ACL = None
+    AWS_QUERYSTRING_AUTH = False  # public URLs without expiring signatures
+    AWS_S3_FILE_OVERWRITE = False
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+else:
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+
 
 # ─── i18n ─────────────────────────────────────────────────────────────────────
 LANGUAGE_CODE = "en-us"
