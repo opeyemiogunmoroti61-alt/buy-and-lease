@@ -294,7 +294,7 @@ function ListingMapview({ type, initialBedroom, initialPropertyType }: ListingMa
 
           {/* Left: Listing cards */}
           <div className="w-full lg:w-1/2 overflow-y-auto h-[calc(100vh-200px)] no-scrollbar">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {loading ? (
               <div className="flex flex-col items-center justify-center h-64 gap-4">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" />

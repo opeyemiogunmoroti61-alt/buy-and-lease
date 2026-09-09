@@ -11,7 +11,7 @@ export default async function Page({
     Array.isArray(v) ? v[0] ?? '' : v ?? ''
 
   return (
-    <div className="container mx-auto px-4 py-10">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-10">
       <h1 className="text-2xl font-bold mb-8">Property Listings</h1>
       <ListingMapview
         type={first(params.type)}

@@ -131,7 +131,7 @@ export default async function ViewListing({ params }: { params: Promise<{ id: st
 
           {/* RIGHT COLUMN — Sticky Price Card */}
           <div className="lg:col-span-1">
-            <div className="sticky top-8 space-y-6">
+            <div className="lg:sticky lg:top-8 space-y-6">
               <div className="bg-white border border-slate-200 shadow-lg rounded-2xl p-6 md:p-8">
                 <div className="mb-6">
                   <p className="text-slate-500 font-medium text-sm mb-1 uppercase tracking-wide">Listing Price</p>
