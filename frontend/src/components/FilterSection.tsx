@@ -24,7 +24,7 @@ function FilterSection({
     return (
         <div className='grid grid-cols-2 md:flex gap-2'>
             <Select onValueChange={onBedChange}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-full">
                     <SelectValue placeholder="Bed" />
                 </SelectTrigger>
                 <SelectContent>
@@ -37,7 +37,7 @@ function FilterSection({
             </Select>
 
             <Select onValueChange={onBathChange}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-full">
                     <SelectValue placeholder="Bath" />
                 </SelectTrigger>
                 <SelectContent>
@@ -49,7 +49,7 @@ function FilterSection({
             </Select>
 
             <Select onValueChange={onParkingChange}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-full">
                     <SelectValue placeholder="Parking" />
                 </SelectTrigger>
                 <SelectContent>
@@ -60,7 +60,7 @@ function FilterSection({
             </Select>
 
             <Select onValueChange={onHomeTypeChange}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-full">
                     <SelectValue placeholder="Home Type" />
                 </SelectTrigger>
                 <SelectContent>
